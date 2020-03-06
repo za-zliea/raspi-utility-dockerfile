@@ -1,0 +1,28 @@
+#!/bin/bash
+
+VENDOR=$1
+VENDOR_API_KEY=$2
+VENDOR_API_SECRET=$3
+DOMAIN=$4
+SUBDOMAIN=$5
+IP_ADDR=$(ipself)
+
+DDNS_CRON_CONF=/etc/cron.d/ddns
+DDNS_LOG_TIME=$(date '+%Y-%m-%d %H:%M:%S')
+DDNS_LOG_INIT=/var/log/cron.d/ddns-init.log
+
+case $VENDOR in
+    GODADDY)
+        CRONTAB_COMMAND_DDNS="$VENDOR $VENDOR_API_KEY $VENDOR_API_SECRET $DOMAIN $SUBDOMAIN"
+        ;;
+    *)
+        echo "VENDOR ONLY SUPPORT GODADDY"
+        ;;
+esac
+
+CRONTAB_TASK_DDNS="*/5 * * * *  root  /usr/local/bin/ddns-cron $CRONTAB_COMMAND_DDNS"
+
+echo "[$DDNS_LOG_TIME] CREATE CRONTAB DDNS $VENDOR $DOMAIN $SUBDOMAIN" >> $DDNS_LOG_INIT
+
+sed -i "/$CRONTAB_COMMAND_DDNS/d" $DDNS_CRON_CONF
+echo "$CRONTAB_TASK_DDNS" >> $DDNS_CRON_CONF

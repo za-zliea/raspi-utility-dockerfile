@@ -1,0 +1,22 @@
+#!/bin/bash
+
+VENDOR=$1
+VENDOR_API_KEY=$2
+VENDOR_API_SECRET=$3
+DOMAIN=$4
+SUBDOMAIN=$5
+IP_ADDR=$(/usr/local/bin/ipself)
+
+DDNS_LOG_TIME=$(date '+%Y-%m-%d %H:%M:%S')
+DDNS_LOG_DDNS=/var/log/cron.d/ddns.log
+
+echo "[$DDNS_LOG_TIME] DDNS $VENDOR $DOMAIN $SUBDOMAIN $IP_ADDR" >> $DDNS_LOG_DDNS
+
+case $VENDOR in
+    GODADDY)
+        /usr/local/bin/ddns-cron-godaddy $VENDOR_API_KEY $VENDOR_API_SECRET $DOMAIN $SUBDOMAIN $IP_ADDR
+        ;;
+    *)
+        echo "[$DDNS_LOG_TIME] VENDOR ONLY SUPPORT GODADDY" >> $DDNS_LOG_DDNS
+        ;;
+esac
