@@ -40,7 +40,8 @@ RUN apt-get update \
 
 ARG SHADOWSOCKS_CONFIG_DIR="/etc"
 
-ADD conf ${SHADOWSOCKS_CONFIG_DIR}
+COPY conf/shadowsocks-libev ${SHADOWSOCKS_CONFIG_DIR}/shadowsocks-libev
+COPY conf/.shadowsocks-libev ${SHADOWSOCKS_CONFIG_DIR}/.shadowsocks-libev
 
 WORKDIR /etc/shadowsocks-libev
 

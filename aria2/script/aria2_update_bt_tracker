@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# get url_list
+ARIA2_TRACKER_URL_DEFAULT="https://raw.githubusercontent.com/ngosang/trackerslist/master/trackers_best.txt"
+
+if [[ -z "${ARIA2_TRACKER_URL}" ]]; then
+    ARIA2_TRACKER_URL=${ARIA2_TRACKER_URL_DEFAULT}
+fi
+
+ARIA2_TRACKER_LIST=$(curl -s ${ARIA2_TRACKER_URL})
+ARIA2_TRACKER_URL_LIST=$(echo ${ARIA2_TRACKER_LIST} | sed 's/[ ][ ]*/,/g')
+
+sed -i "s|.*bt-tracker=.*|bt-tracker=${ARIA2_TRACKER_URL_LIST}|" /etc/aria2/aria2.conf
