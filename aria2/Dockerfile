@@ -5,7 +5,7 @@ FROM ${registry}/ubuntu:${ubuntu_code_name}
 
 ARG ARIA2_VERSION=
 
-ARG ARIA2_BUILD_DEPS="git libcppunit-dev autoconf automake autotools-dev autopoint libtool pkg-config libssl-dev libssh2-1-dev libc-ares-dev libexpat1-dev libsqlite3-dev zlib1g-dev"
+ARG ARIA2_BUILD_DEPS="git libcppunit-dev autoconf automake autotools-dev build-essential autopoint libtool pkg-config libssl-dev libssh2-1-dev libc-ares-dev libexpat1-dev libsqlite3-dev zlib1g-dev"
 ARG ARIA2_RUNTIME_DEPS="curl"
 ARG ARIA2_SOURCE_URL="https://github.com/aria2/aria2.git"
 ARG ARIA2_BUILD_DIR="/tmp/aria2"
