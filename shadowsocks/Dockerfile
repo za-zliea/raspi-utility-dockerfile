@@ -3,8 +3,6 @@ ARG ubuntu_code_name=bionic
 
 FROM ${registry}/ubuntu:${ubuntu_code_name}
 
-ENV ARGS=
-
 ARG BUILD_DEPS="git gettext build-essential autoconf libtool libpcre3-dev libssl-dev asciidoc xmlto libev-dev libc-ares-dev automake libmbedtls-dev libsodium-dev libbloom-dev"
 ARG RUNTIME_DEPS="apg libev4 libsodium23 libbloom1 libmbedcrypto1 libcap2 libcap2-bin libcork16 libcorkipset1 libpam-cap haveged kcptun"
 
@@ -15,6 +13,8 @@ ARG SHADOWSOCKS_GIT_URL="https://github.com/shadowsocks/shadowsocks-libev.git"
 ARG SIMPLE_OBFS_VERSION=v0.0.5
 ARG SIMPLE_OBFS_BUILD_DIR="/tmp/simple-obfs"
 ARG SIMPLE_OBFS_GIT_URL="https://github.com/shadowsocks/simple-obfs.git"
+
+LABEL SHADOWSOCKS_VERSION=${SHADOWSOCKS_VERSION}
 
 RUN apt-get update \
  && apt-get install --no-install-recommends -y ${BUILD_DEPS} \

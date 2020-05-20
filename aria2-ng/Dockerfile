@@ -3,7 +3,7 @@ ARG ubuntu_code_name=bionic
 
 FROM ${registry}/ubuntu:${ubuntu_code_name}
 
-ENV ARIANG_VERSION=1.1.4
+ARG ARIANG_VERSION=
 
 ARG ARIANG_INSTALL_DEPS="curl unzip"
 ARG ARIANG_DL_URL="https://github.com/mayswind/AriaNg/releases/download/${ARIANG_VERSION}/AriaNg-${ARIANG_VERSION}.zip"
@@ -11,6 +11,8 @@ ARG ARIANG_DL_PATH="/opt/AriaNg-${ARIANG_VERSION}.zip"
 
 ENV ARIANG_BACKUP_DIR="/opt/.AriaNg-${ARIANG_VERSION}"
 ENV ARIANG_ROOT_DIR="/opt/AriaNg-${ARIANG_VERSION}"
+
+LABEL ARIANG_VERSION=${ARIANG_VERSION}
 
 RUN apt-get update \
  && apt-get install -y ${ARIANG_INSTALL_DEPS} \

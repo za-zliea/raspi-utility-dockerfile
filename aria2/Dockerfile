@@ -3,7 +3,8 @@ ARG ubuntu_code_name=bionic
 
 FROM ${registry}/ubuntu:${ubuntu_code_name}
 
-ENV ARIA2_VERSION=1.35.0
+ARG ARIA2_VERSION=
+
 ARG ARIA2_BUILD_DEPS="git libcppunit-dev autoconf automake autotools-dev autopoint libtool pkg-config libssl-dev libssh2-1-dev libc-ares-dev libexpat1-dev libsqlite3-dev zlib1g-dev"
 ARG ARIA2_RUNTIME_DEPS="curl"
 ARG ARIA2_SOURCE_URL="https://github.com/aria2/aria2.git"
@@ -14,6 +15,8 @@ ENV ARIA2_DOWNLOAD_DIR=/opt/download
 
 ENV RPC_SECRET=
 ENV ARIA2_BT_TRACKER_URL=
+
+LABEL ARIA2_VERSION=${ARIA2_VERSION}
 
 RUN apt-get update \
  && apt-get install -y ${ARIA2_BUILD_DEPS} \

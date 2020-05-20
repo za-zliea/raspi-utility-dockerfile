@@ -3,13 +3,13 @@ ARG ubuntu_code_name=bionic
 
 FROM ${registry}/ubuntu:${ubuntu_code_name}
 
-ENV ARGS=
-
 ARG BUILD_DEPS="git build-essential" 
 
-ARG VLMCSD_VERSION="svn1112"
+ARG VLMCSD_VERSION=
 ARG VLMCSD_BUILD_DIR="/tmp/vlmcsd"
 ARG VLMCSD_GIT_URL="https://github.com/Wind4/vlmcsd.git"
+
+LABEL VLMCSD_VERSION=${VLMCSD_VERSION}
 
 RUN apt-get update \
  && apt-get install --no-install-recommends -y ${BUILD_DEPS} \

@@ -9,7 +9,7 @@ IP_ADDR=$5
 DDNS_LOG_TIME=$(date '+%Y-%m-%d %H:%M:%S')
 DDNS_LOG_GODADDY=/var/log/cron.d/ddns-godaddy.log
 
-echo "[$DDNS_LOG_TIME] CHECK $DOMAIN-$SUBDOMAIN IP ADDR IS CHANGE" >> $DDNS_LOG_GODADDY
+echo "[$DDNS_LOG_TIME] CHECK $DOMAIN-$SUBDOMAIN IP ADDR" >> $DDNS_LOG_GODADDY
 RECORD_IP=$(/usr/bin/curl -fsSL -H "Authorization: sso-key $API_KEY:$API_SECRET" https://api.godaddy.com/v1/domains/$DOMAIN/records/A/$SUBDOMAIN)
 if [[ "$RECORD_IP" == *"$IP_ADDR"* ]]; then
     echo "[$DDNS_LOG_TIME] $DOMAIN-$SUBDOMAIN RECODE IP ADDR $RECORD_IP WITH IP ADDR $IP_ADDR IS NOT CHANGE" >> $DDNS_LOG_GODADDY

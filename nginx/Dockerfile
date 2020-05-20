@@ -3,8 +3,11 @@ ARG ubuntu_code_name
 
 FROM ${registry}/ubuntu:${ubuntu_code_name}
 
+ARG NGINX_VERSION=
 ARG NGINX_INSTALL_DEPS="curl lsb-release gnupg2"
 ARG NGINX_RUNTIME_DEPS="zlib1g openssl libpcre3 nginx ca-certificates"
+
+LABEL NGINX_VERSION=${NGINX_VERSION}
 
 RUN apt-get update \
  && apt-get install --no-install-recommends -y ${NGINX_INSTALL_DEPS} \

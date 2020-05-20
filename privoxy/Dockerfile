@@ -3,6 +3,10 @@ ARG ubuntu_code_name=bionic
 
 FROM ${registry}/ubuntu:${ubuntu_code_name}
 
+ARG PRIVOXY_VERSION=
+
+LABEL PRIVOXY_VERSION=${PRIVOXY_VERSION}
+
 RUN apt-get update \
  && apt-get install --no-install-recommends -y privoxy \
  && apt-get clean \

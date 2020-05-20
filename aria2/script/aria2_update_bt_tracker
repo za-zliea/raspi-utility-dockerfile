@@ -10,4 +10,9 @@ fi
 ARIA2_TRACKER_LIST=$(curl -s ${ARIA2_TRACKER_URL})
 ARIA2_TRACKER_URL_LIST=$(echo ${ARIA2_TRACKER_LIST} | sed 's/[ ][ ]*/,/g')
 
-sed -i "s|.*bt-tracker=.*|bt-tracker=${ARIA2_TRACKER_URL_LIST}|" /etc/aria2/aria2.conf
+if [[ -n "${ARIA2_TRACKER_URL_LIST}" ]]; then
+    echo "update track list"
+    sed -i "s|.*bt-tracker=.*|bt-tracker=${ARIA2_TRACKER_URL_LIST}|" /etc/aria2/aria2.conf
+else
+    echo "fetch tracker list failed, skip"
+fi
