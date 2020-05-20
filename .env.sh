@@ -1,7 +1,7 @@
 #!/bin/bash
 
 REGISTRY=
-UBUNTU_CODE_NAME=bionic
+UBUNTU_CODE_NAME=focal
 NAMESPACE=
 
 PROXY=
