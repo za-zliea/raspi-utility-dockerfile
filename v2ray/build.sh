@@ -4,7 +4,7 @@ source ./../env.sh
 
 cd "$(dirname "$0")"
 
-V2RAY_VERSION=v4.21.3
+V2RAY_VERSION=v4.24.2
 
 BUILD_ARG="${BUILD_ARG} --build-arg V2RAY_VERSION=${V2RAY_VERSION}"
 
