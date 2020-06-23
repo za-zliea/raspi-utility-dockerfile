@@ -9,13 +9,20 @@ IP_ADDR=$5
 DDNS_LOG_TIME=$(date '+%Y-%m-%d %H:%M:%S')
 DDNS_LOG_GODADDY=/var/log/cron.d/ddns-godaddy.log
 
+/usr/local/bin/ddns-env
+echo "PROXY: $PROXY" >> $DDNS_LOG_GODADDY
+
 echo "[$DDNS_LOG_TIME] CHECK $DOMAIN-$SUBDOMAIN IP ADDR" >> $DDNS_LOG_GODADDY
-RECORD_IP=$(/usr/bin/curl -fsSL ${PROXY} -H "Authorization: sso-key $API_KEY:$API_SECRET" https://api.godaddy.com/v1/domains/$DOMAIN/records/A/$SUBDOMAIN)
-if [[ "$RECORD_IP" == *"$IP_ADDR"* ]]; then
+RECORD_IP=$(/usr/bin/curl -fsSL $PROXY -H "Authorization: sso-key $API_KEY:$API_SECRET" https://api.godaddy.com/v1/domains/$DOMAIN/records/A/$SUBDOMAIN)
+
+echo "RECORD_IP: $RECORD_IP" >> $DDNS_LOG_GODADDY
+echo "IP_ADDR: $IP_ADDR" >> $DDNS_LOG_GODADDY
+
+if echo $RECORD_IP | grep -q "$IP_ADDR"; then
     echo "[$DDNS_LOG_TIME] $DOMAIN-$SUBDOMAIN RECODE IP ADDR $RECORD_IP WITH IP ADDR $IP_ADDR IS NOT CHANGE" >> $DDNS_LOG_GODADDY
     exit 1
 fi
 
 echo "[$DDNS_LOG_TIME] CALL GODADDY CHANGE $DOMAIN-$SUBDOMAIN IP ADDR $IP_ADDR" >> $DDNS_LOG_GODADDY
-/usr/bin/curl -fsSL ${PROXY} -X PUT -H "Content-Type:application/json" -d "[{\"data\":\"$IP_ADDR\",\"name\":\"$SUBDOMAIN\",\"ttl\":600,\"type\":\"A\"}]" -H "Authorization: sso-key $API_KEY:$API_SECRET" https://api.godaddy.com/v1/domains/$DOMAIN/records/A/$SUBDOMAIN
+/usr/bin/curl -fsSL $PROXY -X PUT -H "Content-Type:application/json" -d "[{\"data\":\"$IP_ADDR\",\"name\":\"$SUBDOMAIN\",\"ttl\":600,\"type\":\"A\"}]" -H "Authorization: sso-key $API_KEY:$API_SECRET" https://api.godaddy.com/v1/domains/$DOMAIN/records/A/$SUBDOMAIN
 
