@@ -6,8 +6,8 @@ FROM ${registry}/ubuntu:${ubuntu_code_name}
 LABEL name="Nexus Repository Manager" \
       maintainer="Sonatype <support@sonatype.com>" \
       vendor=Sonatype \
-      version="3.23.0-03" \
-      release="3.23.0" \
+      version="${NEXUS_RELEASE}" \
+      release="${NEXUS_VERSION}" \
       url="https://sonatype.com" \
       summary="The Nexus Repository Manager server \
           with universal support for popular component formats." \

@@ -4,7 +4,7 @@ source ./../env.sh
 
 cd "$(dirname "$0")"
 
-NGINX_VERSION=1.18
+NGINX_VERSION=1.18.0
 BUILD_ARG="${BUILD_ARG} --build-arg NGINX_VERSION=${NGINX_VERSION}"
 
 docker build ${BUILD_ARG} -t ${REGISTRY}/nginx:${NGINX_VERSION} .

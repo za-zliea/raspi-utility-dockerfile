@@ -12,6 +12,8 @@ ARG ARIANG_DL_PATH="/opt/AriaNg-${ARIANG_VERSION}.zip"
 ENV ARIANG_BACKUP_DIR="/opt/.AriaNg-${ARIANG_VERSION}"
 ENV ARIANG_ROOT_DIR="/opt/AriaNg-${ARIANG_VERSION}"
 
+ENV ARIANG_VERSION=${ARIANG_VERSION}
+
 LABEL ARIANG_VERSION=${ARIANG_VERSION}
 
 RUN apt-get update \
@@ -19,6 +21,7 @@ RUN apt-get update \
  && curl -fsSL ${ARIANG_DL_URL} -o ${ARIANG_DL_PATH} \
  && cd /opt \
  && unzip -d ${ARIANG_ROOT_DIR} ${ARIANG_DL_PATH} \
+ && echo "${ARIANG_VERSION}" > ${ARIANG_ROOT_DIR}/.aria2-ng.version \
  && cp -r ${ARIANG_ROOT_DIR} ${ARIANG_BACKUP_DIR} \
  && rm -Rf ${ARIANG_DL_PATH} \
  && apt-get purge -y --auto-remove ${ARIANG_INSTALL_DEPS} \
@@ -29,3 +32,5 @@ WORKDIR ${ARIANG_ROOT_DIR}
 
 COPY docker-entrypoint.sh /usr/local/bin/
 ENTRYPOINT ["docker-entrypoint.sh"]
+
+CMD ["aria-init"]
