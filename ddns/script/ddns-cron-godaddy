@@ -12,9 +12,9 @@ DDNS_LOG_GODADDY=/var/log/cron.d/ddns-godaddy.log
 source /usr/local/bin/ddns-env
 
 echo "[$DDNS_LOG_TIME] CHECK $DOMAIN-$SUBDOMAIN IP ADDR" >> $DDNS_LOG_GODADDY
-RECORD_IP=$(/usr/bin/curl -fsSL $PROXY -H "Authorization: sso-key $API_KEY:$API_SECRET" https://api.godaddy.com/v1/domains/$DOMAIN/records/A/$SUBDOMAIN)
+RECORD_IP=$(/usr/bin/curl -fsSL $PROXY -H "Authorization: sso-key $API_KEY:$API_SECRET" https://api.godaddy.com/v1/domains/$DOMAIN/records/A/$SUBDOMAIN | jq -r .[0].data)
 
-if echo $RECORD_IP | grep -q "$IP_ADDR"; then
+if [ "$RECORD_IP" = "$IP_ADDR" ]; then
     echo "[$DDNS_LOG_TIME] $DOMAIN-$SUBDOMAIN RECODE IP ADDR $RECORD_IP WITH IP ADDR $IP_ADDR IS NOT CHANGE" >> $DDNS_LOG_GODADDY
     exit 1
 fi

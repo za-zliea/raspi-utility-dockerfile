@@ -3,7 +3,7 @@ ARG ubuntu_code_name=bionic
 
 FROM ${registry}/ubuntu:${ubuntu_code_name}
 
-ARG CRON_INSTALL_PKG="curl cron vim" 
+ARG CRON_INSTALL_PKG="curl cron vim jq" 
 ENV CRON_CONF=/etc/cron.d
 ENV CRON_LOG=/var/log/cron.d
 ENV PROXY=
