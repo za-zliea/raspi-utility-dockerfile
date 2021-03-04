@@ -3,6 +3,6 @@
 UID=1000
 GID=1000
 ARIANG_INSTALL_DIR=html
-ARIANG_VERSION=1.1.7
+ARIANG_VERSION=1.2.1
 
 docker run -it --rm -u ${UID}:${GID} -v ${ARIANG_INSTALL_DIR}:/opt/AriaNg-${ARIANG_VERSION} docker.ztechstack.site/aria-ng:${ARIANG_VERSION}

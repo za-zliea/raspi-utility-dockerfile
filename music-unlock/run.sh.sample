@@ -1,0 +1,8 @@
+#!/bin/sh
+
+UID=1000
+GID=1000
+MUSIC_UNLOCK_INSTALL_DIR=/work/nginx/html/music-unlock
+MUSIC_UNLOCK_VERSION=v1.8.1
+
+docker run -it --rm -u ${UID}:${GID} -v ${MUSIC_UNLOCK_INSTALL_DIR}:/opt/music-unlock-${MUSIC_UNLOCK_VERSION} docker.ztechstack.site/music-unlock:${MUSIC_UNLOCK_VERSION}

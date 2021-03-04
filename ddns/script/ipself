@@ -1,3 +1,3 @@
 #!/bin/bash
 
-echo -n $(/usr/bin/curl -fsSL https://zapi.ztechstack.site/v1/ipself/)
+echo -n $(/usr/bin/curl -fsSL https://zapi.ztechstack.com/v1/ipself/)

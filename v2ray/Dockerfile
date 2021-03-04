@@ -6,7 +6,7 @@ FROM ${registry}/ubuntu:${ubuntu_code_name}
 ARG INSTALL_DEPS="curl unzip"
 
 ARG V2RAY_VERSION=
-ARG V2RAY_DL_URL=https://github.com/v2ray/v2ray-core/releases/download/${V2RAY_VERSION}/v2ray-linux-arm64-v8a.zip
+ARG V2RAY_DL_URL=https://github.com/v2fly/v2ray-core/releases/download/${V2RAY_VERSION}/v2ray-linux-arm64-v8a.zip
 ARG V2RAY_DIGEST_URL="${V2RAY_DL_URL}.dgst"
 ARG V2RAY_DL_DIR="/tmp"
 ARG V2RAY_FILE="${V2RAY_DL_DIR}/v2ray.zip"
