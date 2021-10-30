@@ -17,7 +17,7 @@ ARG SIMPLE_OBFS_GIT_URL="https://github.com/shadowsocks/simple-obfs.git"
 LABEL SHADOWSOCKS_VERSION=${SHADOWSOCKS_VERSION}
 
 RUN apt-get update \
- && apt-get install --no-install-recommends -y ${BUILD_DEPS} \
+ && apt-get install --no-install-recommends -y ${BUILD_DEPS} rng-tools \
  && git clone -b ${SHADOWSOCKS_VERSION} ${SHADOWSOCKS_GIT_URL} ${SHADOWSOCKS_BUILD_DIR} \
  && cd ${SHADOWSOCKS_BUILD_DIR} \
  && git submodule update --init --recursive \
